@@ -15,7 +15,7 @@ const signuproute = require('./Routes/signuproute');
 const loginroute = require('./Routes/login');
 
 app.use(cors({
-  origin: 'http://employeemanagement-client.vercel.app/', // Frontend URL
+  origin: 'http://employeemanagement-client.vercel.app', // Frontend URL
   credentials: true, // Allow cookies/auth headers
 }));
 app.use(morgan('dev'));

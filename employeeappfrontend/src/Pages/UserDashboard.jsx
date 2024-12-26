@@ -1,6 +1,17 @@
-
-import  { useEffect, useState } from 'react';
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress, Alert } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  CircularProgress,
+  Alert,
+} from '@mui/material';
 import axiosInstance from './axiosinterceptor';
 
 export default function UserDashboard() {
@@ -23,25 +34,58 @@ export default function UserDashboard() {
     fetchData();
   }, []);
 
-  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" height="5vh"><CircularProgress /></Box>;
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="5vh">
+        <CircularProgress />
+      </Box>
+    );
   if (error) return <Alert severity="error">Error: {error.message}</Alert>;
 
   return (
-    <Box component="main" sx={{ marginTop: '100px', marginLeft: '100px', p: 3, width: '85vw' }}>
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
-        EMPLOYEE LIST-USER DASHBOARD
+    <Box
+      component="main"
+      sx={{
+        marginTop: { xs: '20px', md: '100px' },
+        padding: { xs: 2, md: 3 },
+        width: { xs: '90vw', md: '85vw' },
+        marginLeft: { xs: '5vw', md: '100px' },
+      }}
+    >
+      <Typography
+        variant="h5"
+        gutterBottom
+        sx={{
+          fontWeight: 'bold',
+          textAlign: { xs: 'center', md: 'left' },
+          marginBottom: { xs: 2, md: 3 },
+        }}
+      >
+        EMPLOYEE LIST - USER DASHBOARD
       </Typography>
+
       <hr />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 900 }} aria-label="employee table">
+
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
+        <Table sx={{ minWidth: 600 }} aria-label="employee table">
           <TableHead>
-            <TableRow sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
-              <TableCell>EMPLOYEE ID</TableCell>
-              <TableCell>EMPLOYEE NAME</TableCell>
-              <TableCell align="left">DESIGNATION</TableCell>
-              <TableCell align="left">LOCATION</TableCell>
-              <TableCell align="left">SALARY</TableCell>
-                </TableRow>
+            <TableRow>
+              <TableCell sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+                EMPLOYEE ID
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+                EMPLOYEE NAME
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+                DESIGNATION
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+                LOCATION
+              </TableCell>
+              <TableCell align="left" sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+                SALARY
+              </TableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {data.map((row) => (
@@ -61,7 +105,7 @@ export default function UserDashboard() {
                 <TableCell align="left">{row.designation}</TableCell>
                 <TableCell align="left">{row.location}</TableCell>
                 <TableCell align="left">{row.salary}</TableCell>
-                  </TableRow>
+              </TableRow>
             ))}
           </TableBody>
         </Table>

@@ -1,5 +1,18 @@
-import  { useEffect, useState } from 'react';
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, CircularProgress, Alert, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  CircularProgress,
+  Alert,
+  Button,
+} from '@mui/material';
 import axiosInstance from './axiosinterceptor';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +21,7 @@ export default function AdminDashboard() {
   const [employee, setemployee] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -24,16 +37,22 @@ export default function AdminDashboard() {
       setLoading(false);
     }
   };
-console.log(employee);
-  if (loading) return <Box display="flex" justifyContent="center" alignItems="center" height="5vh"><CircularProgress /></Box>;
+
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="5vh">
+        <CircularProgress />
+      </Box>
+    );
   if (error) return <Alert severity="error">Error: {error.message}</Alert>;
 
-  const handleAddition = async () => {
-       navigate('/form');
+  const handleAddition = () => {
+    navigate('/form');
   };
 
   const handleUpdate = async (row) => {
     setemployee(row);
+    console.log(employee)
     navigate('/form', { state: row });
     try {
       await axiosInstance.put(`/admin/edit/${row._id}`, row);
@@ -52,55 +71,57 @@ console.log(employee);
   };
 
   return (
-    <Box 
-      component="main" 
-      sx={{ 
-          marginTop: '100px', 
-          marginLeft: '100px', 
-          p: 3, 
-          width: '85vw' 
+    <Box
+      component="main"
+      sx={{
+        marginTop: { xs: '20px', md: '100px' },
+        padding: { xs: 2, md: 3 },
+        width: { xs: '90vw', md: '85vw' },
+        marginLeft: { xs: '5vw', md: '100px' },
       }}
     >
-      <Box 
-          sx={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center', 
-              marginBottom: 3 
-          }}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 3,
+        }}
       >
-          <Typography 
-              variant="h4" 
-              gutterBottom 
-              sx={{ 
-                  fontWeight: 'bold' 
-              }}
-          >
-              EMPLOYEE LIST - ADMIN DASHBOARD
-          </Typography>
-          <Button 
-              variant="contained" 
-              sx={{ 
-                  p: 2 
-              }} 
-              onClick={handleAddition}
-          >
-              Register <br/> New Employee
-          </Button>
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            textAlign: { xs: 'center', md: 'left' },
+            marginBottom: { xs: 2, md: 0 },
+          }}
+        >
+          EMPLOYEE LIST - ADMIN DASHBOARD
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{
+            padding: { xs: 1, md: 2 },
+          }}
+          onClick={handleAddition}
+        >
+          Register New Employee
+        </Button>
       </Box>
-      
+
       <hr />
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 900 }} aria-label="employee table">
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
+        <Table sx={{ minWidth: 600 }} aria-label="employee table">
           <TableHead>
-            <TableRow sx={{ fontWeight: 'bold', backgroundColor: 'grey.200' }}>
+            <TableRow>
               <TableCell>EMPLOYEE ID</TableCell>
               <TableCell>EMPLOYEE NAME</TableCell>
               <TableCell align="left">DESIGNATION</TableCell>
               <TableCell align="left">LOCATION</TableCell>
               <TableCell align="left">SALARY</TableCell>
-              <TableCell align="left"> </TableCell>
-              <TableCell align="left"> </TableCell>
+              <TableCell align="center">ACTIONS</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -121,11 +142,9 @@ console.log(employee);
                 <TableCell align="left">{row.designation}</TableCell>
                 <TableCell align="left">{row.location}</TableCell>
                 <TableCell align="left">{row.salary}</TableCell>
-                <TableCell align="left">
-                  <Button variant="contained" onClick={() => handleUpdate(row)}>UPDATE</Button>
-                </TableCell>
-                <TableCell align="left">
-                  <Button variant="contained" onClick={() => handleDelete(row)}>DELETE</Button>
+                <TableCell align="center" sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
+                  <Button variant="contained" size="small" onClick={() => handleUpdate(row)}>UPDATE</Button>
+                  <Button variant="contained" size="small" color="error" onClick={() => handleDelete(row)}>DELETE</Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -38,57 +38,80 @@ const EmployeeFormPage = () => {
   };
 
   return (
-    <Box 
-      component="main" 
-      sx={{ 
-        marginTop: '100px', 
-        marginLeft: '100px', 
-        p: 3, 
-        width: '65vw' 
+    <Box
+      component="main"
+      sx={{
+        margin: 'auto',
+        padding: { xs: 2, sm: 3, md: 4 },
+        maxWidth: { xs: '90vw', sm: '80vw', md: '60vw' },
+        backgroundColor: '#fff',
+        boxShadow: 3,
+        borderRadius: 2,
+        mt: { xs: 5, md: 8 },
+        textAlign: 'center',
       }}
     >
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+      <Typography 
+        variant="h4" 
+        gutterBottom 
+        sx={{ 
+          fontWeight: 'bold', 
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          mb: 3,
+        }}
+      >
         {formData._id ? 'Update Employee' : 'Register New Employee'}
       </Typography>
-      <TextField
-        margin="dense"
-        name="name"
-        label="Name"
-        type="text"
-        fullWidth
-        value={formData.name}
-        onChange={handleChange}
-      />
-      <TextField
-        margin="dense"
-        name="designation"
-        label="Designation"
-        type="text"
-        fullWidth
-        value={formData.designation}
-        onChange={handleChange}
-      />
-      <TextField
-        margin="dense"
-        name="location"
-        label="Location"
-        type="text"
-        fullWidth
-        value={formData.location}
-        onChange={handleChange}
-      />
-      <TextField
-        margin="dense"
-        name="salary"
-        label="Salary"
-        type="number"
-        fullWidth
-        value={formData.salary}
-        onChange={handleChange}
-      />
-      <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>
-        Save
-      </Button>
+      <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <TextField
+          name="name"
+          label="Name"
+          type="text"
+          fullWidth
+          value={formData.name}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <TextField
+          name="designation"
+          label="Designation"
+          type="text"
+          fullWidth
+          value={formData.designation}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <TextField
+          name="location"
+          label="Location"
+          type="text"
+          fullWidth
+          value={formData.location}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <TextField
+          name="salary"
+          label="Salary"
+          type="number"
+          fullWidth
+          value={formData.salary}
+          onChange={handleChange}
+          variant="outlined"
+        />
+        <Button 
+          variant="contained" 
+          onClick={handleSubmit} 
+          sx={{
+            mt: 2,
+            py: 1.5,
+            fontSize: { xs: '0.9rem', sm: '1rem' },
+          }}
+          fullWidth
+        >
+          Save
+        </Button>
+      </Box>
     </Box>
   );
 };

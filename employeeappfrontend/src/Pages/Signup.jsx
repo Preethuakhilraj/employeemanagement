@@ -1,9 +1,22 @@
-import { Box, Button, TextField, Typography, MenuItem, Select, InputLabel, FormControl, Checkbox, FormControlLabel } from '@mui/material';
-import  { useState } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosInstance from './axiosinterceptor';
 
-const Image = 'https://images.pexels.com/photos/4344860/pexels-photo-4344860.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load'
+const Image =
+  'https://images.pexels.com/photos/4344860/pexels-photo-4344860.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load';
+
 export default function Signup() {
   const [employee, setEmployee] = useState({
     username: '',
@@ -11,7 +24,7 @@ export default function Signup() {
     role: '',
     email: '',
     phone: '',
-    terms: false
+    terms: false,
   });
 
   const handleChange = (e) => {
@@ -21,7 +34,6 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Employee Data:', employee);
     try {
       const response = await axiosInstance.post('/signup', employee);
       console.log(response.data);
@@ -41,16 +53,18 @@ export default function Signup() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
+        minHeight: '100vh',
         width: '100vw',
         backgroundColor: '#f0f2f5',
+        padding: { xs: 2, md: 4 },
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          width: '70%',
-          height: '90%',
+          flexDirection: { xs: 'column', md: 'row' },
+          width: { xs: '100%', md: '80%' },
+          maxWidth: 1200,
           boxShadow: 3,
           borderRadius: 2,
           overflow: 'hidden',
@@ -60,35 +74,35 @@ export default function Signup() {
         <Box
           sx={{
             flex: 1,
-            display: 'flex',
+            display: { xs: 'none', md: 'flex' },
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#E6E6FA ',
+            backgroundColor: '#E6E6FA',
             padding: 2,
           }}
         >
           <Box
-        component="img"
-        sx={{
-          height: 'auto',
-          width: '80%',
-          maxHeight: '80%',
-          objectFit: 'cover',
-        }}
-        alt="Employee form image"
-        src={Image}
-      />
-          </Box>
+            component="img"
+            sx={{
+              height: 'auto',
+              width: '80%',
+              maxHeight: '80%',
+              objectFit: 'cover',
+            }}
+            alt="Employee form image"
+            src={Image}
+          />
+        </Box>
         <Box
           sx={{
             flex: 1,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 4,
+            padding: { xs: 2, md: 4 },
           }}
         >
-          <Box sx={{ width: '80%' }}>
+          <Box sx={{ width: '100%', maxWidth: 400 }}>
             <Typography variant="h4" gutterBottom>
               Sign up
             </Typography>
@@ -169,7 +183,13 @@ export default function Signup() {
                   </Typography>
                 }
               />
-              <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3, mb: 2 }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ mt: 3, mb: 2 }}
+              >
                 Sign up
               </Button>
               <Typography
